@@ -1,0 +1,12 @@
+/target/
+/.settings/
+/.classpath
+/.project
+/model-layer/.settings/
+/model-layer/target/
+/model-layer/.classpath
+/model-layer/.project
+/view-layer/.settings/
+/view-layer/target/
+/view-layer/.classpath
+/view-layer/.project
