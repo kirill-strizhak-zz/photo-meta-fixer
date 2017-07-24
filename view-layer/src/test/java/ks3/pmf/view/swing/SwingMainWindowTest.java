@@ -1,9 +1,6 @@
 package ks3.pmf.view.swing;
 
 import java.awt.Component;
-import java.awt.event.ComponentListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +12,7 @@ import ks3.pmf.view.swing.SwingMainWindow;
 
 public class SwingMainWindowTest {
     
-    private MainWindow<Component, ComponentListener> mainFrame;
+    private MainWindow<Component> mainFrame;
 
     @Before
     public void setUp() {
@@ -31,12 +28,6 @@ public class SwingMainWindowTest {
     @Test
     public void canAddImagePanel() {
         mainFrame.addImagePanel(new SwingImagePanel());
-    }
-    
-    @Test
-    public void canAddListeners() {
-        List<ComponentListener> listenerList = new ArrayList<>();
-        mainFrame.addListener(listenerList);
     }
 
 }

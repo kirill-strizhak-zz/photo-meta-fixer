@@ -1,5 +1,6 @@
 package ks3.pmf.view;
 
+import java.awt.Component;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -11,8 +12,8 @@ public class Application {
 
     private static Application instance;
     
-    private final MainWindow mainFrame;
-    private final ImagePanel imagePanel;
+    private final MainWindow<Component> mainFrame;
+    private final ImagePanel<Component> imagePanel;
     
     private Application() {
         mainFrame = new SwingMainWindow();
@@ -28,11 +29,11 @@ public class Application {
     }
 
     public static void addImage(ImageIcon image) {
-        
+        instance.imagePanel.addImage(image);
     }
 
-    public static List<ImageIcon> getImages() {
-        return null;
+    public static List<ImageIcon> getImageList() {
+        return instance.imagePanel.getImageList();
     }
 
 }

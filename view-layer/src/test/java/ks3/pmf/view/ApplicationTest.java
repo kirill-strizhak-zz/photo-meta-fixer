@@ -4,25 +4,24 @@ import static org.junit.Assert.*;
 
 import javax.swing.ImageIcon;
 
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 
 import ks3.pmf.model.Settings;
 
 public class ApplicationTest {
 
-    @Test
-    public void canCreate() {
+    @Before
+    public void setUp() {
         Settings.initialize("./settings.xml");
         Application.initialize();
     }
     
-    @Ignore
     @Test
     public void canAddImage() {
         ImageIcon image = new ImageIcon();
         Application.addImage(image);
-        assertTrue(Application.getImages().contains(image));
+        assertTrue(Application.getImageList().contains(image));
     }
 
 }
