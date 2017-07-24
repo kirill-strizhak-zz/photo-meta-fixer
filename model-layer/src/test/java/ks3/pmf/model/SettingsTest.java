@@ -42,7 +42,21 @@ public class SettingsTest {
     
     @Test
     public void testLoadingDefaultSettings() {
-        assertEquals("Photo Meta Fixer", Settings.get("applicationName"));
+        assertEquals("Photo Meta Fixer", Settings.get(Setting.APPLICATION_NAME));
+    }
+    
+    @Test
+    public void testSettingIntegerProperties() {
+        Integer intValue = Integer.valueOf(10);
+        Settings.set("intValue", intValue);
+        assertEquals(intValue, Settings.getInteger("intValue"));
+    }
+    
+    @Test
+    public void testSetAndGetSettingByEnum() {
+        Integer value = Integer.valueOf(123);
+        Settings.set(Setting.MAIN_WINDOW_HEIGHT, value);
+        assertEquals(value.toString(), Settings.get(Setting.MAIN_WINDOW_HEIGHT));
     }
 
     private boolean deleteTestFile() {

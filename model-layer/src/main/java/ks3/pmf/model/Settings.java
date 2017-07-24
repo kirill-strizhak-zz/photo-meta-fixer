@@ -30,16 +30,39 @@ public class Settings {
     }
 
     public static void initialize(String filePath) {
-        instance = new Settings(filePath);
+        if (instance == null) {
+            instance = new Settings(filePath);
+        }
         instance.load();
     }
 
     public static String get(String name) {
         return instance.props.getProperty(name);
     }
+    
+    public static String get(Setting name) {
+        return get(name.toString());
+    }
 
-    public static void set(String name, String value) {
-        instance.props.setProperty(name, value);
+    public static Integer getInteger(String name) {
+        String value = get(name);
+        if (value == null) {
+            return null;
+        } else {
+            return Integer.parseInt(value);
+        }
+    }
+    
+    public static Integer getInteger(Setting name) {
+        return getInteger(name.toString());
+    }
+
+    public static void set(String name, Object value) {
+        instance.props.setProperty(name, value.toString());
+    }
+
+    public static void set(Setting name, Object value) {
+        set(name.toString(), value);
     }
 
     public static void save() {
@@ -84,11 +107,16 @@ public class Settings {
     }
 
     private void loadDefaultSettings() {
-        //TODO: Lookup file in packaged application
-        File file = new File("./resources/default_settings.xml");
+        File file = lookupDefaultSettingFile();
         if (file.exists()) {
             tryToLoadFile(file);
         }
+    }
+
+    private File lookupDefaultSettingFile() {
+        File file = new File("../model-layer/resources/default_settings.xml");
+        // TODO: Lookup file in packaged application
+        return file;
     }
 
 }
