@@ -17,6 +17,8 @@ public class Application {
     private Application() {
         mainFrame = new SwingMainWindow();
         imagePanel = new SwingImagePanel();
+        mainFrame.addImagePanel(imagePanel);
+        mainFrame.show();
     }
 
     public static void initialize() {
