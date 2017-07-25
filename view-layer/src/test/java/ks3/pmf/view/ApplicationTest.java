@@ -1,13 +1,13 @@
 package ks3.pmf.view;
 
-import static org.junit.Assert.*;
-
-import javax.swing.ImageIcon;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import ks3.pmf.model.Settings;
+import ks3.pmf.model.awt.AwtImageFile;
+import ks3.pmf.view.swing.SwingTestsHelper;
 
 public class ApplicationTest {
 
@@ -19,9 +19,9 @@ public class ApplicationTest {
     
     @Test
     public void canAddImage() {
-        ImageIcon image = new ImageIcon();
-        Application.addImage(image);
-        assertTrue(Application.getImageList().contains(image));
+        AwtImageFile imageFile = SwingTestsHelper.getMockImageFile();
+        Application.addImage(imageFile);
+        assertEquals(1, Application.getImageList().size());
     }
 
 }

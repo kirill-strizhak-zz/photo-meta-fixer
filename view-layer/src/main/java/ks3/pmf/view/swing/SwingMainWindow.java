@@ -3,6 +3,7 @@ package ks3.pmf.view.swing;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 
@@ -11,7 +12,7 @@ import ks3.pmf.model.Settings;
 import ks3.pmf.view.ImagePanel;
 import ks3.pmf.view.MainWindow;
 
-public class SwingMainWindow implements MainWindow<Component> {
+public class SwingMainWindow implements MainWindow<Component, Image> {
     
     private final JFrame frame;
     
@@ -34,7 +35,7 @@ public class SwingMainWindow implements MainWindow<Component> {
     }
 
     @Override
-    public void addImagePanel(ImagePanel<Component> imagePanel) {
+    public void addImagePanel(ImagePanel<Component, Image> imagePanel) {
         frame.add(imagePanel.getComponent(), BorderLayout.CENTER);
     }
 

@@ -1,23 +1,24 @@
 package ks3.pmf.view.swing;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.Image;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import ks3.pmf.model.awt.AwtImageFile;
 import ks3.pmf.view.ImagePanel;
-import ks3.pmf.view.swing.SwingImagePanel;
 
 public class SwingImagePanelTest {
     
-    private ImagePanel<Component> imagePanel;
+    private ImagePanel<Component, Image> imagePanel;
 
     @Before
     public void setUp() {
@@ -31,9 +32,9 @@ public class SwingImagePanelTest {
     
     @Test
     public void testAddingImage() {
-        ImageIcon icon = new ImageIcon();
-        imagePanel.addImage(icon);
-        assertTrue(imagePanel.getImageList().contains(icon));
+        AwtImageFile imageFile = SwingTestsHelper.getMockImageFile();
+        imagePanel.addImage(imageFile);
+        assertEquals(1, imagePanel.getImageList().size());
     }
     
     @Ignore
@@ -41,6 +42,14 @@ public class SwingImagePanelTest {
     public void testHandleResizeEvent() {
         assertExpectedResizeOutcome(200, 100, 2, 2);
         assertExpectedResizeOutcome(400, 200, 4, 2);
+    }
+    
+    @Ignore
+    @Test
+    public void testUpdateItemDimension() {
+        //TODO: meaningful init
+        imagePanel.updateItemDimensions(5, 5);
+        //TODO: validation
     }
 
     private void assertExpectedResizeOutcome(int width, int height, int rows, int cols) {
