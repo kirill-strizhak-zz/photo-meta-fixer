@@ -1,11 +1,11 @@
 package ks3.pmf.view.swing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.Image;
 
 import javax.swing.JPanel;
 
@@ -13,15 +13,17 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import ks3.pmf.model.awt.AwtImageFile;
-import ks3.pmf.view.ImagePanel;
+import ks3.pmf.model.Setting;
+import ks3.pmf.model.Settings;
 
 public class SwingImagePanelTest {
     
-    private ImagePanel<Component, Image> imagePanel;
+    private SwingImagePanel imagePanel;
 
     @Before
     public void setUp() {
+        Settings.initialize("./settings");
+        Settings.set(Setting.IMAGE_ICON_WIDTH, 20);
         imagePanel = new SwingImagePanel();
     }
     
@@ -32,16 +34,28 @@ public class SwingImagePanelTest {
     
     @Test
     public void testAddingImage() {
-        AwtImageFile imageFile = SwingTestsHelper.getMockImageFile();
-        imagePanel.addImage(imageFile);
+        imagePanel.addImage(SwingTestsHelper.getMockImageFile());
         assertEquals(1, imagePanel.getImageList().size());
+    }
+    
+    @Test
+    public void testIsEmpty() {
+        assertTrue(imagePanel.isEmpty());
+        imagePanel.addImage(SwingTestsHelper.getMockImageFile());
+        assertFalse(imagePanel.isEmpty());
+    }
+    
+    @Test
+    public void testCalculateOptimalColumnCount() {
+        assertEquals(5, imagePanel.calculateOptimalColumnCount(100));
+        //TODO: look for edge cases
     }
     
     @Ignore
     @Test
     public void testHandleResizeEvent() {
-        assertExpectedResizeOutcome(200, 100, 2, 2);
-        assertExpectedResizeOutcome(400, 200, 4, 2);
+        assertExpectedResizeOutcome(200, 100, 9);
+        assertExpectedResizeOutcome(400, 200, 19);
     }
     
     @Ignore
@@ -52,11 +66,12 @@ public class SwingImagePanelTest {
         //TODO: validation
     }
 
-    private void assertExpectedResizeOutcome(int width, int height, int rows, int cols) {
-        JPanel panel = ((SwingImagePanel) imagePanel).getPanel();
+    private void assertExpectedResizeOutcome(int width, int height, int cols) {
+        JPanel panel = imagePanel.getPanel();
         panel.setSize(width, height);
-        assertEquals(rows, ((GridLayout) panel.getLayout()).getRows());
-        assertEquals(cols, ((GridLayout) panel.getLayout()).getColumns());
+        
+        GridLayout layout = (GridLayout) panel.getLayout();
+        assertEquals(cols, layout.getColumns());
     }
 
 }
