@@ -1,7 +1,5 @@
 package ks3.pmf.view;
 
-import java.awt.Component;
-import java.awt.Image;
 import java.util.List;
 
 import ks3.pmf.model.ImageFile;
@@ -11,10 +9,14 @@ import ks3.pmf.view.swing.SwingMainWindow;
 public class Application {
 
     private static Application instance;
+
+    @SuppressWarnings("rawtypes")
+    private final MainWindow mainFrame;
     
-    private final MainWindow<Component, Image> mainFrame;
-    private final ImagePanel<Component, Image> imagePanel;
+    @SuppressWarnings("rawtypes")
+    private final ImagePanel imagePanel;
     
+    @SuppressWarnings("unchecked")
     private Application() {
         mainFrame = new SwingMainWindow();
         imagePanel = new SwingImagePanel();
@@ -28,11 +30,13 @@ public class Application {
         }
     }
 
-    public static void addImage(ImageFile<Image> image) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public static void addImage(ImageFile image) {
         instance.imagePanel.addImage(image);
     }
 
-    public static List<ImageItem<Component>> getImageList() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public static List<ImageItem> getImageList() {
         return instance.imagePanel.getImageList();
     }
 
