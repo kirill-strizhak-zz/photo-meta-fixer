@@ -114,9 +114,9 @@ public class Settings {
     }
 
     private File lookupDefaultSettingFile() {
-        File file = new File("./model-layer/resources/default_settings.xml");
+        File file = new File("./model-layer/src/main/resources/default_settings.xml");
         if (!file.exists()) {
-            file = new File("../model-layer/resources/default_settings.xml");
+            file = new File("../model-layer/src/main/resources/default_settings.xml");
         }
         // TODO: Lookup file in packaged application
         return file;
