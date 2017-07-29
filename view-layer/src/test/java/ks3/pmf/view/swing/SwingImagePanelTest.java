@@ -5,7 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JPanel;
 
@@ -51,11 +53,11 @@ public class SwingImagePanelTest {
         //TODO: look for edge cases
     }
     
-    @Ignore
     @Test
     public void testHandleResizeEvent() {
-        assertExpectedResizeOutcome(200, 100, 9);
-        assertExpectedResizeOutcome(400, 200, 19);
+        imagePanel.addImage(SwingTestsHelper.getMockImageFile());
+        assertExpectedResizeOutcome(200, 100, 10);
+        assertExpectedResizeOutcome(400, 200, 20);
     }
     
     @Ignore
@@ -67,10 +69,11 @@ public class SwingImagePanelTest {
     }
 
     private void assertExpectedResizeOutcome(int width, int height, int cols) {
-        JPanel panel = imagePanel.getPanel();
-        panel.setSize(width, height);
-        
-        GridLayout layout = (GridLayout) panel.getLayout();
+        Component component = imagePanel.getComponent();
+        component.setSize(width, height);
+        component.dispatchEvent(new ComponentEvent(component, ComponentEvent.COMPONENT_RESIZED));
+
+        GridLayout layout = (GridLayout) imagePanel.getPanel().getLayout();
         assertEquals(cols, layout.getColumns());
     }
 

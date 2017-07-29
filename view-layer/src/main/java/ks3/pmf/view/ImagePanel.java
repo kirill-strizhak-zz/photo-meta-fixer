@@ -10,5 +10,6 @@ public interface ImagePanel<T, U> {
     void addImage(ImageFile<U> imageFile);
     List<ImageItem<T>> getImageList();
     void updateItemDimensions(int width, int height);
+    void refreshImageDisplay();
 
 }

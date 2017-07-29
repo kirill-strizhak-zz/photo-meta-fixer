@@ -39,5 +39,9 @@ public class Application {
     public static List<ImageItem> getImageList() {
         return instance.imagePanel.getImageList();
     }
+    
+    public static void refreshImages() {
+        instance.imagePanel.refreshImageDisplay();
+    }
 
 }

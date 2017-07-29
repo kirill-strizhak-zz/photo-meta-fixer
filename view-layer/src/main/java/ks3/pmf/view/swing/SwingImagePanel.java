@@ -21,15 +21,6 @@ import ks3.pmf.view.ImageItem;
 import ks3.pmf.view.ImagePanel;
 
 public class SwingImagePanel implements ImagePanel<Component, Image> {
-    
-    private class ImagePanelResizeListener extends ComponentAdapter {
-
-        @Override
-        public void componentResized(ComponentEvent ev) {
-            System.out.println(ev.getSource());
-        }
-
-    }
 
     private final JPanel panel;
     private final Component outerComponent;
@@ -37,15 +28,21 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     
     private int iconWidth;
     private int iconHeight;
+    private boolean needToSyncImages = false;
     
     public SwingImagePanel() {
         panel = new JPanel(new GridLayout(0, 2, 5, 5));
-        panel.addComponentListener(new ImagePanelResizeListener());
         
         JPanel imgFitPan = new JPanel();
         imgFitPan.add(panel, BorderLayout.WEST);
         JScrollPane imageScrollPane = new JScrollPane(imgFitPan);
         imageScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        imageScrollPane.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent ev) {
+                updateColumnCount();
+            }
+        });
         outerComponent = imageScrollPane;
         
         iconWidth = Settings.getInteger(Setting.IMAGE_ICON_WIDTH);
@@ -59,6 +56,7 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
 
     @Override
     public void addImage(ImageFile<Image> imageFile) {
+        needToSyncImages  = true;
         imageList.add(new SwingImageItem(imageFile, iconWidth, iconHeight));
     }
 
@@ -69,7 +67,20 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
 
     @Override
     public void updateItemDimensions(int width, int height) {
+        needToSyncImages = true;
         // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void refreshImageDisplay() {
+        if (needToSyncImages) {
+            panel.removeAll();
+            imageList.stream().forEachOrdered(image -> panel.add(image.getComponent()));
+            needToSyncImages = false;
+        }
+
+        panel.revalidate();
+        panel.repaint();
     }
     
     protected JPanel getPanel() {
@@ -78,6 +89,15 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
 
     protected boolean isEmpty() {
         return imageList.isEmpty();
+    }
+
+    protected void updateColumnCount() {
+        int newColCount = calculateOptimalColumnCount(outerComponent.getWidth());
+        GridLayout imgLayout = (GridLayout) panel.getLayout();
+        if (imgLayout.getColumns() != newColCount) {
+            imgLayout.setColumns(newColCount);
+            refreshImageDisplay();
+        }
     }
 
     protected int calculateOptimalColumnCount(int newWidth) {
