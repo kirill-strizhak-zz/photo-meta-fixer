@@ -9,10 +9,7 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ComponentEvent;
 
-import javax.swing.JPanel;
-
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ks3.pmf.model.Setting;
@@ -50,7 +47,7 @@ public class SwingImagePanelTest {
     @Test
     public void testCalculateOptimalColumnCount() {
         assertEquals(5, imagePanel.calculateOptimalColumnCount(100));
-        //TODO: look for edge cases
+        assertEquals(4, imagePanel.calculateOptimalColumnCount(99));
     }
     
     @Test
@@ -58,14 +55,6 @@ public class SwingImagePanelTest {
         imagePanel.addImage(SwingTestsHelper.getMockImageFile());
         assertExpectedResizeOutcome(200, 100, 10);
         assertExpectedResizeOutcome(400, 200, 20);
-    }
-    
-    @Ignore
-    @Test
-    public void testUpdateItemDimension() {
-        //TODO: meaningful init
-        imagePanel.updateItemDimensions(5, 5);
-        //TODO: validation
     }
 
     private void assertExpectedResizeOutcome(int width, int height, int cols) {

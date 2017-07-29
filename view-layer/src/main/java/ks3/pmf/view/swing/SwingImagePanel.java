@@ -22,6 +22,13 @@ import ks3.pmf.view.ImagePanel;
 
 public class SwingImagePanel implements ImagePanel<Component, Image> {
 
+    private class ResizeListener extends ComponentAdapter {
+        @Override
+        public void componentResized(ComponentEvent ev) {
+            updateColumnCount();
+        }
+    }
+
     private final JPanel panel;
     private final Component outerComponent;
     private final List<SwingImageItem> imageList = new ArrayList<>();
@@ -32,21 +39,18 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     
     public SwingImagePanel() {
         panel = new JPanel(new GridLayout(0, 2, 5, 5));
-        
-        JPanel imgFitPan = new JPanel();
-        imgFitPan.add(panel, BorderLayout.WEST);
-        JScrollPane imageScrollPane = new JScrollPane(imgFitPan);
-        imageScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        imageScrollPane.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent ev) {
-                updateColumnCount();
-            }
-        });
-        outerComponent = imageScrollPane;
-        
+        outerComponent = wrapInScrollPane(panel);
         iconWidth = Settings.getInteger(Setting.IMAGE_ICON_WIDTH);
         iconHeight = Settings.getInteger(Setting.IMAGE_ICON_HEIGHT);
+    }
+
+    private Component wrapInScrollPane(Component content) {
+        JPanel imgFitPan = new JPanel();
+        imgFitPan.add(content, BorderLayout.WEST);
+        JScrollPane imageScrollPane = new JScrollPane(imgFitPan);
+        imageScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        imageScrollPane.addComponentListener(new ResizeListener());
+        return imageScrollPane;
     }
 
     @Override
@@ -66,25 +70,19 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     }
 
     @Override
-    public void updateItemDimensions(int width, int height) {
-        needToSyncImages = true;
-        // TODO Auto-generated method stub
-    }
-
-    @Override
     public void refreshImageDisplay() {
         if (needToSyncImages) {
-            panel.removeAll();
-            imageList.stream().forEachOrdered(image -> panel.add(image.getComponent()));
-            needToSyncImages = false;
+            prepareImagesForDisplay();
         }
 
         panel.revalidate();
         panel.repaint();
     }
-    
-    protected JPanel getPanel() {
-        return panel;
+
+    private void prepareImagesForDisplay() {
+        panel.removeAll();
+        imageList.stream().forEachOrdered(image -> panel.add(image.getComponent()));
+        needToSyncImages = false;
     }
 
     protected boolean isEmpty() {
@@ -103,6 +101,10 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     protected int calculateOptimalColumnCount(int newWidth) {
         int colCount = Math.floorDiv(newWidth, iconWidth);
         return (colCount < 1) ? 1 : colCount;
+    }
+    
+    protected JPanel getPanel() {
+        return panel;
     }
 
 }
