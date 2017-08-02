@@ -24,11 +24,10 @@ public class SwingImageItem implements ImageItem<Component> {
     private JLabel image;
     private JLabel label;
     
-    public SwingImageItem(ImageFile<Image> imageFile, int width, int height) {
+    public SwingImageItem(ImageFile<Image> imageFile) {
         this.imageFile = imageFile;
         component = new JPanel(new BorderLayout());
         createImageIcon();
-        setImageIconDimensions(width, height);
         createLabelWithGeneratedName();
         createBorderWithFileName();
     }
@@ -37,12 +36,6 @@ public class SwingImageItem implements ImageItem<Component> {
         ImageIcon imageIcon = new ImageIcon(imageFile.getImage());
         image = new JLabel("", imageIcon, JLabel.CENTER);
         component.add(image, BorderLayout.CENTER);
-    }
-
-    private void setImageIconDimensions(int width, int height) {
-        Dimension dimension = new Dimension(width, height);
-        image.setMinimumSize(dimension);
-        image.setMaximumSize(dimension);
     }
 
     private void createLabelWithGeneratedName() {

@@ -5,6 +5,6 @@
 <entry key="APPLICATION_NAME">Photo Meta Fixer</entry>
 <entry key="MAIN_WINDOW_WIDTH">400</entry>
 <entry key="MAIN_WINDOW_HEIGHT">300</entry>
-<entry key="IMAGE_ICON_WIDTH">100</entry>
-<entry key="IMAGE_ICON_HEIGHT">70</entry>
+<entry key="IMAGE_ICON_WIDTH">200</entry>
+<entry key="IMAGE_ICON_HEIGHT">150</entry>
 </properties>

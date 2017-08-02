@@ -61,7 +61,7 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     @Override
     public void addImage(ImageFile<Image> imageFile) {
         needToSyncImages  = true;
-        imageList.add(new SwingImageItem(imageFile, iconWidth, iconHeight));
+        imageList.add(new SwingImageItem(imageFile));
     }
 
     @Override

@@ -22,7 +22,7 @@ public class SwingImageItemTest {
         String generatedName = "generatedName";
         AwtImageFile imageFile = SwingTestsHelper.getMockImageFile(fileName, generatedName, width, height);
         
-        SwingImageItem imageItem = new SwingImageItem(imageFile, width, height);
+        SwingImageItem imageItem = new SwingImageItem(imageFile);
         validateBuiltImageItem(imageItem, fileName, generatedName, width, height);
     }
 
