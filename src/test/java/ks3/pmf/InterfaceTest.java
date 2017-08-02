@@ -16,7 +16,7 @@ public class InterfaceTest {
         Settings.initialize("./settings.xml");
         Application.initialize();
 
-        File imageFolder = new File("./view-layer/src/test/resources/images");
+        File imageFolder = new File("./src/test/resources/two_basic_images");
         for (int i = 0; i < 8; i++) {
             addTestImages(imageFolder.listFiles(), i);
         }

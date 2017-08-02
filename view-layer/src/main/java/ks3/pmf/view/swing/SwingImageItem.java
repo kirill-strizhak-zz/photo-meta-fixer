@@ -3,7 +3,6 @@ package ks3.pmf.view.swing;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
