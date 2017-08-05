@@ -6,23 +6,19 @@ import ks3.pmf.model.ImageFile;
 
 public class AwtImageFile implements ImageFile<Image> {
     
-    private Image image;
+    private Image icon;
     private String generatedName;
     private String fileName;
     
-    /**
-     * @deprecated Temporary constructor for testing. Will be removed.
-     */
-    @Deprecated
-    public AwtImageFile(Image image, String generatedName, String fileName) {
-        this.image = image;
+    protected AwtImageFile(Image icon, String generatedName, String fileName) {
+        this.icon = icon;
         this.generatedName = generatedName;
         this.fileName = fileName;
     }
 
     @Override
-    public Image getImage() {
-        return image;
+    public Image getIcon() {
+        return icon;
     }
 
     @Override

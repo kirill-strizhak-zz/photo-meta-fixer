@@ -1,8 +1,7 @@
 package ks3.pmf.model;
 
 public interface ImageFile<T> {
-    T getImage();
+    T getIcon();
     String getFileName();
     String getGeneratedName();
-    
 }

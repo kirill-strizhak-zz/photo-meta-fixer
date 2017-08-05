@@ -1,17 +1,20 @@
-package ks3.pmf.model.loader;
+package ks3.pmf.model.loaders;
 
-import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import ks3.pmf.model.ImageFile;
-import ks3.pmf.model.awt.AwtImageFile;
+import ks3.pmf.model.ImageFileBuilder;
+import ks3.pmf.model.ImageLoader;
 
 public class FilesystemImageLoader implements ImageLoader {
+    
+    private final ImageFileBuilder imageFileBuilder;
+
+    public FilesystemImageLoader(ImageFileBuilder imageFileBuilder) {
+        this.imageFileBuilder = imageFileBuilder;
+    }
 
     @Override
     @SuppressWarnings("rawtypes")
@@ -31,12 +34,7 @@ public class FilesystemImageLoader implements ImageLoader {
 
     @SuppressWarnings("rawtypes")
     private void tryToLoadFile(List<ImageFile> imageFiles, File file) {
-        try {
-            Image image = ImageIO.read(file);
-            imageFiles.add(new AwtImageFile(image, file.getName(), file.getName()));
-        } catch (IOException ex) {
-            System.out.println(String.format("Failed to load image from file '%s': %s", file.getName(), ex.getMessage()));
-        }
+        imageFiles.add(imageFileBuilder.build(file));
     }
 
     protected boolean isAcceptedFile(File file) {

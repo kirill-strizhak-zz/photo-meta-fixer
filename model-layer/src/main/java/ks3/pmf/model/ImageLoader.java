@@ -1,8 +1,6 @@
-package ks3.pmf.model.loader;
+package ks3.pmf.model;
 
 import java.util.List;
-
-import ks3.pmf.model.ImageFile;
 
 public interface ImageLoader {
 

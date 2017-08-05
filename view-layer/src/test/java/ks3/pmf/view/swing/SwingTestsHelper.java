@@ -15,7 +15,7 @@ public class SwingTestsHelper {
     public static AwtImageFile getMockImageFile(String fileName, String generatedName, int width, int height) {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         AwtImageFile imageFile = Mockito.mock(AwtImageFile.class);
-        Mockito.when(imageFile.getImage()).thenReturn(image);
+        Mockito.when(imageFile.getIcon()).thenReturn(image);
         Mockito.when(imageFile.getFileName()).thenReturn(fileName);
         Mockito.when(imageFile.getGeneratedName()).thenReturn(generatedName);
         return imageFile;

@@ -32,7 +32,7 @@ public class SwingImageItem implements ImageItem<Component> {
     }
 
     private void createImageIcon() {
-        ImageIcon imageIcon = new ImageIcon(imageFile.getImage());
+        ImageIcon imageIcon = new ImageIcon(imageFile.getIcon());
         image = new JLabel("", imageIcon, JLabel.CENTER);
         component.add(image, BorderLayout.CENTER);
     }
