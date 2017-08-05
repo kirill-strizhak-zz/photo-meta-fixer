@@ -1,24 +1,25 @@
 package ks3.pmf.model.loader;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.imageio.ImageIO;
-
+import org.junit.Before;
 import org.junit.Test;
-
-import ks3.pmf.model.ImageFile;
-import ks3.pmf.model.awt.AwtImageFile;
+import org.mockito.Mockito;
 
 public class FilesystemImageLoaderTest {
+    
+    private FilesystemImageLoader imageLoader;
 
     private void assertNumberOfImagesLoaded(String folderPath, int numberOfImages) {
-        assertEquals(numberOfImages, loadAllImages(folderPath).size());
+        assertEquals(numberOfImages, imageLoader.loadAllImages(folderPath).size());
+    }
+    
+    @Before
+    public void setUp() {
+        imageLoader = new FilesystemImageLoader();
     }
 
     @Test
@@ -35,22 +36,21 @@ public class FilesystemImageLoaderTest {
     public void givenFolderWithVariousFiles_addOnlyImages() {
         assertNumberOfImagesLoaded("../src/test/resources/images/various", 6);
     }
+    
+    @Test
+    public void givenMatchingExtension_accept() {
+        assertFileAccepted("image.jpg");
+        assertFileAccepted("image.jpeg");
+    }
 
-    @SuppressWarnings("rawtypes")
-    public List<ImageFile> loadAllImages(String folderPath) {
-        File folder = new File(folderPath);
-        File[] files = folder.listFiles(file -> !file.isDirectory() && file.getName().toLowerCase().matches(".*\\.(jpg|jpeg|bmp)$"));
-        List<ImageFile> imageFiles = new ArrayList<>(files.length);
-        
-        Image image;
-        for (File file: files) {
-            try {
-                image = ImageIO.read(file);
-                imageFiles.add(new AwtImageFile(image, file.getName(), file.getName()));
-            } catch (IOException ex) {
-                System.out.println(String.format("Failed to load image from file '%s': %s", file.getName(), ex.getMessage()));
-            }
-        }
-        return imageFiles;
+    private void assertFileAccepted(String fileName) {
+        assertTrue(imageLoader.isAcceptedFile(fakeFile(fileName, false)));
+    }
+
+    private File fakeFile(String name, boolean isFolder) {
+        File file = Mockito.mock(File.class);
+        Mockito.when(file.isDirectory()).thenReturn(isFolder);
+        Mockito.when(file.getName()).thenReturn(name);
+        return file;
     }
 }
