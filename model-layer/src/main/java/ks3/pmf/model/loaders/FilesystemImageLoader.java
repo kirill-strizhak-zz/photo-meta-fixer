@@ -6,6 +6,7 @@ import java.util.List;
 
 import ks3.pmf.model.ImageFile;
 import ks3.pmf.model.ImageFileBuilder;
+import ks3.pmf.model.ImageIconBuilder;
 import ks3.pmf.model.ImageLoader;
 
 public class FilesystemImageLoader implements ImageLoader {
@@ -34,7 +35,11 @@ public class FilesystemImageLoader implements ImageLoader {
 
     @SuppressWarnings("rawtypes")
     private void tryToLoadFile(List<ImageFile> imageFiles, File file) {
-        imageFiles.add(imageFileBuilder.build(file));
+        try {
+            imageFiles.add(imageFileBuilder.build(file));
+        } catch (ImageIconBuilder.FailedToLoadFile ex) {
+            System.out.println(String.format("Failed to load file '%s': %s", file.getName(), ex.getMessage()));
+        }
     }
 
     protected boolean isAcceptedFile(File file) {

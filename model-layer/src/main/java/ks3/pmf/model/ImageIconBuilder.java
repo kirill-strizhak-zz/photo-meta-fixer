@@ -4,5 +4,9 @@ import java.io.File;
 
 public interface ImageIconBuilder<T> {
     
-    T build(File imageFile);
+    static class FailedToLoadFile extends RuntimeException {
+        private static final long serialVersionUID = 1L;
+    }
+    
+    T build(File file);
 }

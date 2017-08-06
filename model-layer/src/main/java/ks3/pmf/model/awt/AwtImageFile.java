@@ -7,12 +7,10 @@ import ks3.pmf.model.ImageFile;
 public class AwtImageFile implements ImageFile<Image> {
     
     private Image icon;
-    private String generatedName;
-    private String fileName;
+    private final String fileName;
     
-    protected AwtImageFile(Image icon, String generatedName, String fileName) {
+    protected AwtImageFile(Image icon, String fileName) {
         this.icon = icon;
-        this.generatedName = generatedName;
         this.fileName = fileName;
     }
 
@@ -23,7 +21,7 @@ public class AwtImageFile implements ImageFile<Image> {
 
     @Override
     public String getGeneratedName() {
-        return generatedName;
+        return fileName;
     }
 
     @Override
