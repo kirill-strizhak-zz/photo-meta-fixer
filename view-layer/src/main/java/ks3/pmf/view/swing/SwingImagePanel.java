@@ -15,8 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import ks3.pmf.model.ImageFile;
-import ks3.pmf.model.Setting;
-import ks3.pmf.model.Settings;
 import ks3.pmf.view.ImageItem;
 import ks3.pmf.view.ImagePanel;
 
@@ -25,23 +23,21 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     private class ResizeListener extends ComponentAdapter {
         @Override
         public void componentResized(ComponentEvent ev) {
-            updateColumnCount();
+            if (!isEmpty()) {
+                updateColumnCount();
+            }
         }
     }
 
     private final JPanel panel;
     private final Component outerComponent;
     private final List<SwingImageItem> imageList = new ArrayList<>();
-    
-    private int iconWidth;
-    private int iconHeight;
+
     private boolean needToSyncImages = false;
-    
+
     public SwingImagePanel() {
         panel = new JPanel(new GridLayout(0, 2, 5, 5));
         outerComponent = wrapInScrollPane(panel);
-        iconWidth = Settings.getInteger(Setting.IMAGE_ICON_WIDTH);
-        iconHeight = Settings.getInteger(Setting.IMAGE_ICON_HEIGHT);
     }
 
     private Component wrapInScrollPane(Component content) {
@@ -60,7 +56,7 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
 
     @Override
     public void addImage(ImageFile<Image> imageFile) {
-        needToSyncImages  = true;
+        needToSyncImages = true;
         imageList.add(new SwingImageItem(imageFile));
     }
 
@@ -90,7 +86,7 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     }
 
     protected void updateColumnCount() {
-        int newColCount = calculateOptimalColumnCount(outerComponent.getWidth());
+        int newColCount = calculateOptimalColumnCount(outerComponent.getWidth() - 35);
         GridLayout imgLayout = (GridLayout) panel.getLayout();
         if (imgLayout.getColumns() != newColCount) {
             imgLayout.setColumns(newColCount);
@@ -99,10 +95,11 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     }
 
     protected int calculateOptimalColumnCount(int newWidth) {
-        int colCount = Math.floorDiv(newWidth, iconWidth);
+        int itemWidth = panel.getComponent(0).getWidth();
+        int colCount = Math.floorDiv(newWidth, itemWidth);
         return (colCount < 1) ? 1 : colCount;
     }
-    
+
     protected JPanel getPanel() {
         return panel;
     }
