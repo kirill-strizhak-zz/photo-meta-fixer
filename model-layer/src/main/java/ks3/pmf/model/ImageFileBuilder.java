@@ -5,5 +5,5 @@ import java.io.File;
 public interface ImageFileBuilder {
 
     @SuppressWarnings("rawtypes")
-    ImageFile build(File file);
+    ImageFile build(File file, int targetWidth, int targetHeight);
 }

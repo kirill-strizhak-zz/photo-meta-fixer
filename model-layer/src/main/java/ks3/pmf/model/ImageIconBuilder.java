@@ -8,5 +8,5 @@ public interface ImageIconBuilder<T> {
         private static final long serialVersionUID = 1L;
     }
     
-    T build(File file);
+    T build(File file, int targetWidth, int targetHeight);
 }

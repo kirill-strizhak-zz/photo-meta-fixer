@@ -5,7 +5,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    AwtImageFileBuilderTest.class
+    AwtImageFileBuilderTest.class,
+    AwtImageIconBuilderTest.class
 })
 public class RunAllAwtTests {
 

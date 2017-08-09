@@ -17,8 +17,8 @@ public class AwtImageFileBuilder implements ImageFileBuilder {
 
     @Override
     @SuppressWarnings("rawtypes")
-    public ImageFile build(File file) {
-        return new AwtImageFile(iconBuilder.build(file), file.getName());
+    public ImageFile build(File file, int targetWidth, int targetHeight) {
+        return new AwtImageFile(iconBuilder.build(file, targetWidth, targetHeight), file.getName());
     }
 
 }

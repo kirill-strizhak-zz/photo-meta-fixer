@@ -12,9 +12,19 @@ import ks3.pmf.model.ImageLoader;
 public class FilesystemImageLoader implements ImageLoader {
     
     private final ImageFileBuilder imageFileBuilder;
+    private int targetWidth;
+    private int targetHeight;
 
-    public FilesystemImageLoader(ImageFileBuilder imageFileBuilder) {
+    public FilesystemImageLoader(ImageFileBuilder imageFileBuilder, int targetWidth, int targetHeight) {
         this.imageFileBuilder = imageFileBuilder;
+        this.targetWidth = targetWidth;
+        this.targetHeight = targetHeight;
+    }
+
+    @Override
+    public void setIconTargetDimensions(int targetWidth, int targetHeight) {
+        this.targetWidth = targetWidth;
+        this.targetHeight = targetHeight;
     }
 
     @Override
@@ -36,7 +46,7 @@ public class FilesystemImageLoader implements ImageLoader {
     @SuppressWarnings("rawtypes")
     private void tryToLoadFile(List<ImageFile> imageFiles, File file) {
         try {
-            imageFiles.add(imageFileBuilder.build(file));
+            imageFiles.add(imageFileBuilder.build(file, targetWidth, targetHeight));
         } catch (ImageIconBuilder.FailedToLoadFile ex) {
             System.out.println(String.format("Failed to load file '%s': %s", file.getName(), ex.getMessage()));
         }

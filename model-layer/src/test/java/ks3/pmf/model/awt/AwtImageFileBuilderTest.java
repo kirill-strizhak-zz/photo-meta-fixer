@@ -2,13 +2,13 @@ package ks3.pmf.model.awt;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.*;
 
 import java.awt.Image;
 import java.io.File;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import ks3.pmf.model.FileTestHelper;
 import ks3.pmf.model.ImageFile;
@@ -27,15 +27,15 @@ public class AwtImageFileBuilderTest {
     @Before
     public void setUp() {
         @SuppressWarnings("unchecked")
-        ImageIconBuilder<Image> iconBuilder = Mockito.mock(ImageIconBuilder.class);
-        Image icon = Mockito.mock(Image.class);
-        Mockito.when(iconBuilder.build(Mockito.any(File.class))).thenReturn(icon);
+        ImageIconBuilder<Image> iconBuilder = mock(ImageIconBuilder.class);
+        Image icon = mock(Image.class);
+        when(iconBuilder.build(any(File.class), anyInt(), anyInt())).thenReturn(icon);
         imageFileBuilder = new AwtImageFileBuilder(iconBuilder);
     }
 
     @Test
     public void givenFile_createAwtImageFile() {
         String fileName = "image.jpg";
-        assertExpectedImageFile(imageFileBuilder.build(FileTestHelper.getMockFile(fileName)), fileName);
+        assertExpectedImageFile(imageFileBuilder.build(FileTestHelper.getMockFile(fileName), 0, 0), fileName);
     }
 }
