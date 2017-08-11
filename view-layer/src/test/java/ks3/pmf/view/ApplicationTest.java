@@ -21,6 +21,7 @@ public class ApplicationTest {
     public void canAddImage() {
         AwtImageFile imageFile = SwingTestsHelper.getMockImageFile();
         Application.addImage(imageFile);
+        Application.refreshImages();
         assertEquals(1, Application.getImageList().size());
     }
 

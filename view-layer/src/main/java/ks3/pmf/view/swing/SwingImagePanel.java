@@ -23,7 +23,7 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     private class ResizeListener extends ComponentAdapter {
         @Override
         public void componentResized(ComponentEvent ev) {
-            if (!isEmpty()) {
+            if (panel.getComponentCount() > 0) {
                 updateColumnCount();
             }
         }
@@ -36,7 +36,11 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     private boolean needToSyncImages = false;
 
     public SwingImagePanel() {
-        panel = new JPanel(new GridLayout(0, 2, 5, 5));
+        this(new JPanel(new GridLayout(0, 2, 5, 5)));
+    }
+
+    protected SwingImagePanel(JPanel panel) {
+        this.panel = panel;
         outerComponent = wrapInScrollPane(panel);
     }
 
@@ -79,10 +83,6 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
         panel.removeAll();
         imageList.stream().forEachOrdered(image -> panel.add(image.getComponent()));
         needToSyncImages = false;
-    }
-
-    protected boolean isEmpty() {
-        return imageList.isEmpty();
     }
 
     protected void updateColumnCount() {

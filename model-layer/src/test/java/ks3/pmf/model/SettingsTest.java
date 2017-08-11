@@ -53,6 +53,11 @@ public class SettingsTest {
     }
     
     @Test
+    public void testGettingMissingIntProperty_ReturnNull() {
+        assertNull(Settings.getInteger("non_existent_setting"));
+    }
+    
+    @Test
     public void testSetAndGetSettingByEnum() {
         Integer value = Integer.valueOf(123);
         Settings.set(Setting.MAIN_WINDOW_HEIGHT, value);
