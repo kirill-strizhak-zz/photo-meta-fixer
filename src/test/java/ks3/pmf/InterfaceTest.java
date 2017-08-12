@@ -14,7 +14,7 @@ public class InterfaceTest {
 
     public static void main(String[] args) throws Exception {
         Settings.initialize("./settings.xml");
-        Application.initialize();
+        Application app = Application.getInstance();
 
         int targetWidth = Settings.getInteger(Setting.IMAGE_ICON_WIDTH);
         int targetHeight = Settings.getInteger(Setting.IMAGE_ICON_HEIGHT);
@@ -25,8 +25,8 @@ public class InterfaceTest {
         
         @SuppressWarnings("rawtypes")
         List<ImageFile> imageFiles = imageLoader.loadAllImages("./src/test/resources/images/various");
-        imageFiles.stream().forEachOrdered(Application::addImage);
+        imageFiles.stream().forEachOrdered(app::addImage);
         
-        Application.refreshImages();
+        app.refreshImages();
     }
 }

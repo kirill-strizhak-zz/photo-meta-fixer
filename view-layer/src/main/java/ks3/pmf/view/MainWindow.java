@@ -4,5 +4,6 @@ public interface MainWindow<T, U> {
 
     void show();
     void addImagePanel(ImagePanel<T, U> imagePanel);
+    void addMenuPanel(MenuPanel<T> menuPanel);
 
 }

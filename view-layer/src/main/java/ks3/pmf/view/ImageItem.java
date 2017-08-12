@@ -1,6 +1,5 @@
 package ks3.pmf.view;
 
-public interface ImageItem<T> {
-    T getComponent();
+public interface ImageItem<T> extends ComponentContainer<T> {
 
 }

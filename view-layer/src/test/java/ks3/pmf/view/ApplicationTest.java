@@ -10,19 +10,21 @@ import ks3.pmf.model.awt.AwtImageFile;
 import ks3.pmf.view.swing.SwingTestsHelper;
 
 public class ApplicationTest {
+    
+    private Application app;
 
     @Before
     public void setUp() {
         Settings.initialize("./settings.xml");
-        Application.initialize();
+        app = Application.getInstance();
     }
     
     @Test
     public void canAddImage() {
         AwtImageFile imageFile = SwingTestsHelper.getMockImageFile();
-        Application.addImage(imageFile);
-        Application.refreshImages();
-        assertEquals(1, Application.getImageList().size());
+        app.addImage(imageFile);
+        app.refreshImages();
+        assertEquals(1, app.getImageList().size());
     }
 
 }

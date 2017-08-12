@@ -11,12 +11,16 @@ public class Settings {
 
     @SuppressWarnings("serial")
     private static class FailedToWriteFile extends RuntimeException {
-
+        public FailedToWriteFile(Throwable cause) {
+            super(cause);
+        }
     }
 
     @SuppressWarnings("serial")
     private class FailedToReadFile extends RuntimeException {
-
+        public FailedToReadFile(Throwable cause) {
+            super(cause);
+        }
     }
 
     private static Settings instance;
@@ -75,7 +79,7 @@ public class Settings {
             props.storeToXML(outStream, generateComment());
             outStream.close();
         } catch (IOException ex) {
-            throw new Settings.FailedToWriteFile();
+            throw new Settings.FailedToWriteFile(ex);
         }
     }
 
@@ -102,7 +106,7 @@ public class Settings {
             props.loadFromXML(inStream);
             inStream.close();
         } catch (IOException ex) {
-            throw new Settings.FailedToReadFile();
+            throw new Settings.FailedToReadFile(ex);
         }
     }
 

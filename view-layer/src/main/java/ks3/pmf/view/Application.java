@@ -5,6 +5,7 @@ import java.util.List;
 import ks3.pmf.model.ImageFile;
 import ks3.pmf.view.swing.SwingImagePanel;
 import ks3.pmf.view.swing.SwingMainWindow;
+import ks3.pmf.view.swing.SwingMenuPanel;
 
 public class Application {
 
@@ -16,32 +17,38 @@ public class Application {
     @SuppressWarnings("rawtypes")
     private final ImagePanel imagePanel;
     
+    @SuppressWarnings("rawtypes")
+    private final MenuPanel menuPanel;
+    
     @SuppressWarnings("unchecked")
     private Application() {
         mainFrame = new SwingMainWindow();
         imagePanel = new SwingImagePanel();
+        menuPanel = new SwingMenuPanel();
         mainFrame.addImagePanel(imagePanel);
+        mainFrame.addMenuPanel(menuPanel);
         mainFrame.show();
     }
 
-    public static void initialize() {
+    public static Application getInstance() {
         if (instance == null) {
             instance = new Application();
         }
+        return instance;
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static void addImage(ImageFile image) {
-        instance.imagePanel.addImage(image);
+    public void addImage(ImageFile image) {
+        imagePanel.addImage(image);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static List<ImageItem> getImageList() {
-        return instance.imagePanel.getImageList();
+    public List<ImageItem> getImageList() {
+        return imagePanel.getImageList();
     }
     
-    public static void refreshImages() {
-        instance.imagePanel.refreshImageDisplay();
+    public void refreshImages() {
+        imagePanel.refreshImageDisplay();
     }
 
 }

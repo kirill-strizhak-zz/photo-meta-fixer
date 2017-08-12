@@ -7,7 +7,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     SwingImageItemTest.class,
     SwingImagePanelTest.class,
-    SwingMainWindowTest.class
+    SwingMainWindowTest.class,
+    SwingMenuPanelTest.class
 })
 public class RunAllSwingTests {
     

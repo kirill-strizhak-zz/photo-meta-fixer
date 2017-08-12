@@ -7,7 +7,7 @@ public class PhotoMetaFixer {
 
     public static void main(String[] args) {
         Settings.initialize("./settings.xml");
-        Application.initialize();
+        Application.getInstance();
     }
 
 }

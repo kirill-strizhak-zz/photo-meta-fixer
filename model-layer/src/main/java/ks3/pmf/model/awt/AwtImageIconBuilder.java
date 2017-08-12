@@ -19,7 +19,7 @@ public class AwtImageIconBuilder implements ImageIconBuilder<Image> {
             BufferedImage image = ImageIO.read(file);
             return Scalr.resize(image, Method.SPEED, targetWidth, targetHeight);
         } catch (IOException ex) {
-            throw new ImageIconBuilder.FailedToLoadFile();
+            throw new ImageIconBuilder.FailedToLoadFile(ex);
         }
     }
 
