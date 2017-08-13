@@ -4,12 +4,18 @@ import static org.junit.Assert.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mockito;
+
+import ks3.pmf.boundary.Application;
 
 public class SwingMenuPanelTest {
 
+    private Application app;
+    
     @Test
     public void canCreateAndGetComponent() {
-        assertNotNull(new SwingMenuPanel().getComponent());
+        app = Mockito.mock(Application.class);
+        assertNotNull(new SwingMenuPanel(app).getComponent());
     }
     
     @Ignore

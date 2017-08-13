@@ -1,5 +1,6 @@
 package ks3.pmf.boundary;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import ks3.pmf.data.ImageFile;
@@ -29,13 +30,18 @@ public class Application {
         try {
             this.mainWindow = mainWindowClass.newInstance();
             this.imagePanel = imagePanelClass.newInstance();
-            this.menuPanel = menuPanelClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException ex) {
+            this.menuPanel = menuPanelClass.getConstructor(Application.class).newInstance(this);
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
             throw new InterfaceInitializationError(ex);
         }
         this.mainWindow.addImagePanel(imagePanel);
         this.mainWindow.addMenuPanel(menuPanel);
         this.mainWindow.show();
+    }
+    
+    public void loadAllImages(String path) {
+        //TODO:
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

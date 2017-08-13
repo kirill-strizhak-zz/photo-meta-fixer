@@ -1,9 +1,9 @@
 package ks3.pmf.boundary;
 
 public interface MainWindow<T, U> {
-
-    void show();
-    void addImagePanel(ImagePanel<T, U> imagePanel);
-    void addMenuPanel(MenuPanel<T> menuPanel);
+    
+    public abstract void show();
+    public abstract void addImagePanel(ImagePanel<T, U> imagePanel);
+    public abstract void addMenuPanel(MenuPanel<T> menuPanel);
 
 }

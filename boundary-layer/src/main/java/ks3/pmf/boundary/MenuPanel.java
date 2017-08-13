@@ -1,5 +1,14 @@
 package ks3.pmf.boundary;
 
-public interface MenuPanel<T> extends ComponentContainer<T> {
+public abstract class MenuPanel<T> implements ComponentContainer<T> {
     
+    private final Application app;
+
+    public MenuPanel(Application app) {
+        this.app = app;
+    }
+    
+    public void loadAllImages(String path) {
+        app.loadAllImages(path);
+    }
 }

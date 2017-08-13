@@ -15,7 +15,7 @@ import javax.swing.border.TitledBorder;
 import ks3.pmf.boundary.ImageItem;
 import ks3.pmf.data.ImageFile;
 
-public class SwingImageItem implements ImageItem<Component> {
+class SwingImageItem implements ImageItem<Component> {
     
     private final ImageFile<Image> imageFile;
     private final JPanel component;
