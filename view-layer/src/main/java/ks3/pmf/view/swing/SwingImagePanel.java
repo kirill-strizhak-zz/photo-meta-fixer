@@ -1,6 +1,5 @@
 package ks3.pmf.view.swing;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -11,8 +10,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 import ks3.pmf.boundary.ImageItem;
 import ks3.pmf.boundary.ImagePanel;
@@ -30,7 +27,7 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     }
 
     private final JPanel panel;
-    private final Component outerComponent;
+    private final Component component;
     private final List<SwingImageItem> imageList = new ArrayList<>();
 
     private boolean needToSyncImages = false;
@@ -41,21 +38,12 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
 
     protected SwingImagePanel(JPanel panel) {
         this.panel = panel;
-        outerComponent = wrapInScrollPane(panel);
-    }
-
-    private Component wrapInScrollPane(Component content) {
-        JPanel imgFitPan = new JPanel();
-        imgFitPan.add(content, BorderLayout.WEST);
-        JScrollPane imageScrollPane = new JScrollPane(imgFitPan);
-        imageScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        imageScrollPane.addComponentListener(new ResizeListener());
-        return imageScrollPane;
+        component = SwingUtils.wrapInScrollPane(panel, new ResizeListener());
     }
 
     @Override
     public Component getComponent() {
-        return outerComponent;
+        return component;
     }
 
     @Override
@@ -86,7 +74,7 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     }
 
     protected void updateColumnCount() {
-        int newColCount = calculateOptimalColumnCount(outerComponent.getWidth() - 35);
+        int newColCount = calculateOptimalColumnCount(component.getWidth() - 35);
         GridLayout imgLayout = (GridLayout) panel.getLayout();
         if (imgLayout.getColumns() != newColCount) {
             imgLayout.setColumns(newColCount);
