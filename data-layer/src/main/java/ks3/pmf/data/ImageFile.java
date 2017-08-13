@@ -1,4 +1,4 @@
-package ks3.pmf.model;
+package ks3.pmf.data;
 
 public interface ImageFile<T> {
     T getIcon();

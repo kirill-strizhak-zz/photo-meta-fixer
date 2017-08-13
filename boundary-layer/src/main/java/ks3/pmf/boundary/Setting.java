@@ -1,4 +1,4 @@
-package ks3.pmf.model;
+package ks3.pmf.boundary;
 
 public enum Setting {
     APPLICATION_NAME,

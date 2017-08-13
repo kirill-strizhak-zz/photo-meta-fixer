@@ -14,9 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import ks3.pmf.model.ImageFile;
-import ks3.pmf.view.ImageItem;
-import ks3.pmf.view.ImagePanel;
+import ks3.pmf.boundary.ImageItem;
+import ks3.pmf.boundary.ImagePanel;
+import ks3.pmf.data.ImageFile;
 
 public class SwingImagePanel implements ImagePanel<Component, Image> {
 

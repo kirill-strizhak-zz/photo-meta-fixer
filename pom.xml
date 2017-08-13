@@ -9,6 +9,8 @@
 	<modules>
 		<module>model-layer</module>
     <module>view-layer</module>
+    <module>boundary-layer</module>
+    <module>data-layer</module>
   </modules>
 	<dependencies>
 	</dependencies>

@@ -2,6 +2,14 @@
 /.settings/
 /.classpath
 /.project
+/boundary-layer/.settings/
+/boundary-layer/target/
+/boundary-layer/.classpath
+/boundary-layer/.project
+/data-layer/.settings/
+/data-layer/target/
+/data-layer/.classpath
+/data-layer/.project
 /model-layer/.settings/
 /model-layer/target/
 /model-layer/.classpath

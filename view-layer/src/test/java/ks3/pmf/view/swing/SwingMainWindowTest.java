@@ -6,8 +6,8 @@ import java.awt.Image;
 import org.junit.Before;
 import org.junit.Test;
 
-import ks3.pmf.model.Settings;
-import ks3.pmf.view.MainWindow;
+import ks3.pmf.boundary.MainWindow;
+import ks3.pmf.boundary.Settings;
 import ks3.pmf.view.swing.SwingImagePanel;
 import ks3.pmf.view.swing.SwingMainWindow;
 

@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import ks3.pmf.model.ImageFile;
+import ks3.pmf.data.ImageFile;
 import ks3.pmf.model.ImageFileBuilder;
 import ks3.pmf.model.ImageIconBuilder;
 import ks3.pmf.model.ImageLoader;

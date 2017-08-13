@@ -7,11 +7,11 @@ import java.awt.Image;
 
 import javax.swing.JFrame;
 
-import ks3.pmf.model.Setting;
-import ks3.pmf.model.Settings;
-import ks3.pmf.view.ImagePanel;
-import ks3.pmf.view.MainWindow;
-import ks3.pmf.view.MenuPanel;
+import ks3.pmf.boundary.ImagePanel;
+import ks3.pmf.boundary.MainWindow;
+import ks3.pmf.boundary.MenuPanel;
+import ks3.pmf.boundary.Setting;
+import ks3.pmf.boundary.Settings;
 
 public class SwingMainWindow implements MainWindow<Component, Image> {
     

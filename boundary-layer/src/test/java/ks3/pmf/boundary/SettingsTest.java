@@ -1,4 +1,4 @@
-package ks3.pmf.model;
+package ks3.pmf.boundary;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +7,9 @@ import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import ks3.pmf.boundary.Setting;
+import ks3.pmf.boundary.Settings;
 
 public class SettingsTest {
     

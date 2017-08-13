@@ -10,7 +10,7 @@ import javax.swing.border.TitledBorder;
 
 import org.junit.Test;
 
-import ks3.pmf.model.awt.AwtImageFile;
+import ks3.pmf.data.ImageFile;
 
 public class SwingImageItemTest {
 
@@ -20,8 +20,10 @@ public class SwingImageItemTest {
         int height = 10;
         String fileName = "fileName";
         String generatedName = "generatedName";
-        AwtImageFile imageFile = SwingTestsHelper.getMockImageFile(fileName, generatedName, width, height);
+        @SuppressWarnings("rawtypes")
+        ImageFile imageFile = SwingTestsHelper.getMockImageFile(fileName, generatedName, width, height);
         
+        @SuppressWarnings("unchecked")
         SwingImageItem imageItem = new SwingImageItem(imageFile);
         validateBuiltImageItem(imageItem, fileName, generatedName, width, height);
     }

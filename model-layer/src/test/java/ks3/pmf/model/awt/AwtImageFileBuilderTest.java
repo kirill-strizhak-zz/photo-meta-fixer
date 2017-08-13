@@ -10,8 +10,8 @@ import java.io.File;
 import org.junit.Before;
 import org.junit.Test;
 
+import ks3.pmf.data.ImageFile;
 import ks3.pmf.model.FileTestHelper;
-import ks3.pmf.model.ImageFile;
 import ks3.pmf.model.ImageIconBuilder;
 
 public class AwtImageFileBuilderTest {

@@ -4,7 +4,7 @@ import java.awt.Component;
 
 import javax.swing.JPanel;
 
-import ks3.pmf.view.MenuPanel;
+import ks3.pmf.boundary.MenuPanel;
 
 public class SwingMenuPanel implements MenuPanel<Component> {
     

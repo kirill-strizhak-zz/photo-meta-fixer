@@ -1,8 +1,8 @@
-package ks3.pmf.view;
+package ks3.pmf.boundary;
 
 import java.util.List;
 
-import ks3.pmf.model.ImageFile;
+import ks3.pmf.data.ImageFile;
 
 public interface ImagePanel<T, U> extends ComponentContainer<T> {
 

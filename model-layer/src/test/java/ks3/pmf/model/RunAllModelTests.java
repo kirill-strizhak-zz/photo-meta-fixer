@@ -8,7 +8,6 @@ import ks3.pmf.model.loaders.RunAllLoaderTests;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    SettingsTest.class,
     RunAllAwtTests.class,
     RunAllLoaderTests.class
 })

@@ -2,7 +2,7 @@ package ks3.pmf.model.awt;
 
 import java.awt.Image;
 
-import ks3.pmf.model.ImageFile;
+import ks3.pmf.data.ImageFile;
 
 public class AwtImageFile implements ImageFile<Image> {
     

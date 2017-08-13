@@ -14,7 +14,7 @@ import javax.swing.border.TitledBorder;
 import org.junit.Before;
 import org.junit.Test;
 
-import ks3.pmf.model.awt.AwtImageFile;
+import ks3.pmf.data.ImageFile;
 
 public class SwingImagePanelTest {
     
@@ -41,8 +41,10 @@ public class SwingImagePanelTest {
     }
     
     @Test
+    @SuppressWarnings("unchecked")
     public void testAddingImage() {
-        AwtImageFile imageFile = SwingTestsHelper.getMockImageFile();
+        @SuppressWarnings("rawtypes")
+        ImageFile imageFile = SwingTestsHelper.getMockImageFile();
         imagePanel.addImage(imageFile);
         imagePanel.refreshImageDisplay();
         assertEquals(1, imagePanel.getImageList().size());
@@ -54,6 +56,7 @@ public class SwingImagePanelTest {
     }
     
     @Test
+    @SuppressWarnings("unchecked")
     public void testAddRemoveImage() {
         assertTrue(imagePanel.getImageList().isEmpty());
         imagePanel.addImage(SwingTestsHelper.getMockImageFile());

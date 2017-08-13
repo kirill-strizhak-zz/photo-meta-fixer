@@ -1,4 +1,4 @@
-package ks3.pmf.view;
+package ks3.pmf.boundary;
 
 public interface MainWindow<T, U> {
 
