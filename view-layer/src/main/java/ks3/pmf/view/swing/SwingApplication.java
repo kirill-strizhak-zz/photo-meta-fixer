@@ -1,6 +1,7 @@
 package ks3.pmf.view.swing;
 
 import ks3.pmf.boundary.Application;
+import ks3.pmf.view.swing.menu.SwingMenuPanel;
 
 public class SwingApplication extends Application {
     
