@@ -6,7 +6,7 @@ import ks3.pmf.data.ImageFile;
 
 public interface ImagePanel<T, U> extends ComponentContainer<T> {
 
-    void addImage(ImageFile<U> imageFile);
+    void addAllImages(List<ImageFile<U>> imageFiles);
     List<ImageItem<T>> getImageList();
     void refreshImageDisplay();
 

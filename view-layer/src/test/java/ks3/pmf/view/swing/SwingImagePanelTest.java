@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ComponentEvent;
+import java.util.Collections;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,11 +42,10 @@ public class SwingImagePanelTest {
     }
     
     @Test
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void testAddingImage() {
-        @SuppressWarnings("rawtypes")
         ImageFile imageFile = SwingTestsHelper.getMockImageFile();
-        imagePanel.addImage(imageFile);
+        imagePanel.addAllImages(Collections.singletonList(imageFile));
         imagePanel.refreshImageDisplay();
         assertEquals(1, imagePanel.getImageList().size());
         assertEquals(1, panel.getComponentCount());
@@ -56,10 +56,11 @@ public class SwingImagePanelTest {
     }
     
     @Test
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void testAddRemoveImage() {
         assertTrue(imagePanel.getImageList().isEmpty());
-        imagePanel.addImage(SwingTestsHelper.getMockImageFile());
+        ImageFile imageFile = SwingTestsHelper.getMockImageFile();
+        imagePanel.addAllImages(Collections.singletonList(imageFile));
         assertFalse(imagePanel.getImageList().isEmpty());
     }
     

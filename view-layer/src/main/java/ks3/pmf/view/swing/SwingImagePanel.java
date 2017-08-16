@@ -8,6 +8,7 @@ import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JPanel;
 
@@ -38,6 +39,7 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
 
     protected SwingImagePanel(JPanel panel) {
         this.panel = panel;
+        panel.setDoubleBuffered(true);
         component = SwingUtils.wrapInScrollPane(panel, new ResizeListener());
     }
 
@@ -47,9 +49,9 @@ public class SwingImagePanel implements ImagePanel<Component, Image> {
     }
 
     @Override
-    public void addImage(ImageFile<Image> imageFile) {
+    public void addAllImages(List<ImageFile<Image>> imageFiles) {
         needToSyncImages = true;
-        imageList.add(new SwingImageItem(imageFile));
+        imageList.addAll(imageFiles.stream().map(SwingImageItem::new).collect(Collectors.toList()));
     }
 
     @Override

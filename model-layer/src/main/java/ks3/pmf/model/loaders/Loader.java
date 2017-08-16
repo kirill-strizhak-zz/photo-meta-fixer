@@ -1,12 +1,14 @@
-package ks3.pmf.model;
+package ks3.pmf.model.loaders;
 
 import java.util.List;
 
 import ks3.pmf.data.ImageFile;
 
-public interface ImageLoader {
+interface Loader {
     
     void setIconTargetDimensions(int targetWidth, int targetHeight);
+
+    boolean canLoadFrom(String location);
 
     @SuppressWarnings("rawtypes")
     List<ImageFile> loadAllImages(String location);

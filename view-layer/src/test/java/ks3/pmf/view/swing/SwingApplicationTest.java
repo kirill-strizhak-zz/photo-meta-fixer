@@ -2,6 +2,8 @@ package ks3.pmf.view.swing;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Collections;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +22,7 @@ public class SwingApplicationTest {
     public void canAddImage() {
         @SuppressWarnings("rawtypes")
         ImageFile imageFile = SwingTestsHelper.getMockImageFile();
-        app.addImage(imageFile);
+        app.addAllImages(Collections.singletonList(imageFile));
         app.refreshImages();
         assertEquals(1, app.getImageList().size());
     }

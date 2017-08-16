@@ -4,26 +4,27 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import ks3.pmf.data.ImageFile;
+import ks3.pmf.model.loaders.ImageLoader;
 
+@SuppressWarnings("rawtypes")
 public class Application {
     
+    private final ImageLoader imageLoader;
+    
     @SuppressWarnings("serial")
-    private static class InterfaceInitializationError extends RuntimeException {
+    public static class InterfaceInitializationError extends RuntimeException {
         public InterfaceInitializationError(Throwable cause) {
             super(cause);
         }
     }
 
-    @SuppressWarnings("rawtypes")
     private final MainWindow mainWindow;
 
-    @SuppressWarnings("rawtypes")
     private final ImagePanel imagePanel;
 
-    @SuppressWarnings("rawtypes")
     private final MenuPanel menuPanel;
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings("unchecked")
     protected Application(Class<? extends MainWindow> mainWindowClass,
             Class<? extends ImagePanel> imagePanelClass, Class<? extends MenuPanel> menuPanelClass) {
         Settings.initialize("./settings.xml");
@@ -37,19 +38,33 @@ public class Application {
         }
         this.mainWindow.addImagePanel(imagePanel);
         this.mainWindow.addMenuPanel(menuPanel);
+        
+        int targetWidth = Settings.getInteger(Setting.IMAGE_ICON_WIDTH);
+        int targetHeight = Settings.getInteger(Setting.IMAGE_ICON_HEIGHT);
+        imageLoader = new ImageLoader(targetWidth, targetHeight);
+        
         this.mainWindow.show();
     }
-    
-    public void loadAllImages(String path) {
-        //TODO:
+
+    @SuppressWarnings("unchecked")
+    public void loadAllImages(String location) {
+        try {
+            List<ImageFile> imageFiles = imageLoader.loadAllImages(location);
+            imagePanel.addAllImages(imageFiles);
+            imagePanel.refreshImageDisplay();
+            
+        } catch (ImageLoader.NoLoaderFoundError ex) {
+            //TODO: Error display
+            System.out.println(ex.getMessage());
+        }
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public void addImage(ImageFile image) {
-        imagePanel.addImage(image);
+    @SuppressWarnings("unchecked")
+    public void addAllImages(List<ImageFile> imageFiles) {
+        imagePanel.addAllImages(imageFiles);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings("unchecked")
     public List<ImageItem> getImageList() {
         return imagePanel.getImageList();
     }

@@ -7,15 +7,14 @@ import java.util.List;
 import ks3.pmf.data.ImageFile;
 import ks3.pmf.model.ImageFileBuilder;
 import ks3.pmf.model.ImageIconBuilder;
-import ks3.pmf.model.ImageLoader;
 
-public class FilesystemImageLoader implements ImageLoader {
+class FileSystemLoader implements Loader {
     
     private final ImageFileBuilder imageFileBuilder;
     private int targetWidth;
     private int targetHeight;
 
-    public FilesystemImageLoader(ImageFileBuilder imageFileBuilder, int targetWidth, int targetHeight) {
+    public FileSystemLoader(ImageFileBuilder imageFileBuilder, int targetWidth, int targetHeight) {
         this.imageFileBuilder = imageFileBuilder;
         this.targetWidth = targetWidth;
         this.targetHeight = targetHeight;
@@ -32,6 +31,11 @@ public class FilesystemImageLoader implements ImageLoader {
     public List<ImageFile> loadAllImages(String location) {
         File[] files = new File(location).listFiles(this::isAcceptedFile);
         return loadAllFiles(files);
+    }
+
+    @Override
+    public boolean canLoadFrom(String location) {
+        return new File(location).canRead();
     }
 
     @SuppressWarnings("rawtypes")

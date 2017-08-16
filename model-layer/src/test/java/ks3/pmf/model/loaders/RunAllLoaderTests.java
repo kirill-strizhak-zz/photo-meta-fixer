@@ -5,7 +5,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    FilesystemImageLoaderTest.class
+    FileSystemLoaderTest.class,
+    ImageLoaderTest.class
 })
 public class RunAllLoaderTests {
 
